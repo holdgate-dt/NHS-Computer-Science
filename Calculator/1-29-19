@@ -1,1 +1,48 @@
+from tkinter import Tk, Label, Button
 
+class MyFirstGUI:
+    def __init__(self, master):
+        self.master = master
+        master.title("A simple Calculator GUI")
+
+        self.label = Label(master, text="Test layout")
+        self.label.pack()
+
+        self.greet_button = Button(master, text="0", command=self.greet)
+        self.greet_button.pack()
+
+        self.close_button = Button(master, text="1", command=self.greet)
+        self.close_button.pack(left)
+
+        self.greet_button = Button(master, text="2", command=self.greet)
+        self.greet_button.pack()
+
+        self.close_button = Button(master, text="3", command=self.greet)
+        self.close_button.pack()
+
+        self.greet_button = Button(master, text="4", command=self.greet)
+        self.greet_button.pack()
+
+        self.close_button = Button(master, text="5", command=self.greet)
+        self.close_button.pack()
+        
+        self.greet_button = Button(master, text="6", command=self.greet)
+        self.greet_button.pack()
+
+        self.close_button = Button(master, text="7", command=self.greet)
+        self.close_button.pack()
+
+        self.greet_button = Button(master, text="8", command=self.greet)
+        self.greet_button.pack()
+
+        self.close_button = Button(master, text="9", command=self.greet)
+        self.close_button.pack()
+
+
+
+    def greet(self):
+        print(self)
+
+root = Tk()
+my_gui = MyFirstGUI(root)
+root.mainloop()
