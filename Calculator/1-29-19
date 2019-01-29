@@ -41,7 +41,7 @@ class MyFirstGUI:
 
 
     def greet(self):
-        print(self)
+        print("Greetings")
 
 root = Tk()
 my_gui = MyFirstGUI(root)
