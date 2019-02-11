@@ -2,9 +2,10 @@ from tkinter import *
 from tkinter import messagebox
 
 class Calculator:
-    
+    #evaluates the expression in the input line
     def evaluate(self):
         self.entry = self.entry_bar.get()
+        #checks for errors in the equation, and alerts the user if there are
         try:
             self.solution = round(eval(self.entry), 6)
         except (SyntaxError, NameError):
@@ -15,13 +16,15 @@ class Calculator:
             self.entry_bar.delete(0, END)
             self.entry_bar.insert(0, self.solution)
     
+    #clearing input line
     def clear(self):
         self.entry_bar.delete(0, END)
     
+    #adding some value to input line
     def entry_add(self, value):
             self.entry_bar.insert(END, value)
     
-    
+    #initilizing the calculator and all the different buttons
     def __init__(self, master):
         self.master = master
         master.title("A simple Calculator GUI")
@@ -80,7 +83,7 @@ class Calculator:
         self.equals_button = Button(master, text="=", bg="#0892d0", activebackground="#54BBEA", fg="#000000", borderwidth=0, command=lambda:self.evaluate())
         self.equals_button.place(x = 20, y = 380,width=280, height=70)
 
-
+#create the root window and set its size, background color, and tell it to run the calculator class
 root = Tk()
 root.geometry("320x470+20+20")
 root.configure(background="#000000")
