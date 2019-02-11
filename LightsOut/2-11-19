@@ -1,0 +1,65 @@
+#LightsOut
+from tkinter import *
+
+class LightsOut:
+    
+    
+    
+    def __init__(self, master):
+        self.master = master
+        master.title("Lights Out")
+        
+        self.light1 = Button(master, bg="#808080")
+        self.light1.place(x = 0, y = 240, height=80, width=80)
+        
+        self.light2 = Button(master, bg="#808080")
+        self.light2.place(x = 80, y = 240, height=80, width=80)
+        
+        self.light3 = Button(master, bg="#808080")
+        self.light3.place(x = 160, y = 240, height=80, width=80)
+        
+        self.light4 = Button(master, bg="#808080")
+        self.light4.place(x = 240, y = 240, height=80, width=80)
+        
+        self.light5 = Button(master, bg="#808080")
+        self.light5.place(x = 0, y = 160, height=80, width=80)
+        
+        self.light6 = Button(master, bg="#808080")
+        self.light6.place(x = 80, y = 160, height=80, width=80)
+        
+        self.light7 = Button(master, bg="#808080")
+        self.light7.place(x = 160, y = 160, height=80, width=80)
+        
+        self.light8 = Button(master, bg="#808080")
+        self.light8.place(x = 240, y = 160, height=80, width=80)
+        
+        self.light9 = Button(master, bg="#808080")
+        self.light9.place(x = 0, y = 80, height=80, width=80)
+        
+        self.light10 = Button(master, bg="#808080")
+        self.light10.place(x = 80, y = 80, height=80, width=80)
+        
+        self.light11 = Button(master, bg="#808080")
+        self.light11.place(x = 160, y = 80, height=80, width=80)
+        
+        self.light12 = Button(master, bg="#808080")
+        self.light12.place(x = 240, y = 80, height=80, width=80)
+        
+        self.light13 = Button(master, bg="#808080")
+        self.light13.place(x = 0, y = 0, height=80, width=80)
+        
+        self.light14 = Button(master, bg="#808080")
+        self.light14.place(x = 80, y = 0, height=80, width=80)
+        
+        self.light15 = Button(master, bg="#808080")
+        self.light15.place(x = 160, y = 0, height=80, width=80)
+        
+        self.light16 = Button(master, bg="#808080")
+        self.light16.place(x = 240, y = 0, height=80, width=80)
+        
+        
+root = Tk()
+root.geometry("320x320")
+root.configure(background="#000000")
+Lights_Out = LightsOut(root)
+root.mainloop()
