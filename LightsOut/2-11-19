@@ -2,379 +2,93 @@
 from tkinter import *
 
 class LightsOut:
+    light_objects = None
     
-    #function for clicking each button
-    def light1_click(self):
+    def on_click(self, main):
+        right = main + 1
+        above = main + 4
+        left = main - 1
+        below = main -4
         #changes the color of the button clicked
-        if self.light1.cget("bg") == "#808080":
-            self.light1.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light1.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light2.cget("bg") == "#808080":
-            self.light2.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light2.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light5.cget("bg") == "#808080":
-            self.light5.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light5.configure(bg="#808080", activebackground="#FFFF00")  
-                                  
-    def light2_click(self):
-        #changes the color of the button clicked
-        if self.light2.cget("bg") == "#808080":
-            self.light2.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light2.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light3.cget("bg") == "#808080":
-            self.light3.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light3.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light6.cget("bg") == "#808080":
-            self.light6.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light6.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light1.cget("bg") == "#808080":
-            self.light1.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light1.configure(bg="#808080", activebackground="#FFFF00")
-                                  
-    def light3_click(self):
-        #changes the color of the button clicked
-        if self.light3.cget("bg") == "#808080":
-            self.light3.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light3.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light4.cget("bg") == "#808080":
-            self.light4.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light4.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light7.cget("bg") == "#808080":
-            self.light7.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light7.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light2.cget("bg") == "#808080":
-            self.light2.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light2.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light4_click(self):
-        #changes the color of the button clicked
-        if self.light4.cget("bg") == "#808080":
-            self.light4.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light4.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light8.cget("bg") == "#808080":
-            self.light8.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light8.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light3.cget("bg") == "#808080":
-            self.light3.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light3.configure(bg="#808080", activebackground="#FFFF00") 
-        
-    def light5_click(self):
-        #changes the color of the button clicked
-        if self.light5.cget("bg") == "#808080":
-            self.light5.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light5.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light6.cget("bg") == "#808080":
-            self.light6.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light6.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light9.cget("bg") == "#808080":
-            self.light9.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light9.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light1.cget("bg") == "#808080":
-            self.light1.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light1.configure(bg="#808080", activebackground="#FFFF00")
-                                  
-    def light6_click(self):
-        #changes the color of the button clicked
-        if self.light6.cget("bg") == "#808080":
-            self.light6.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light6.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light7.cget("bg") == "#808080":
-            self.light7.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light7.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light10.cget("bg") == "#808080":
-            self.light10.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light10.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light5.cget("bg") == "#808080":
-            self.light5.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light5.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light2.cget("bg") == "#808080":
-            self.light2.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light2.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light7_click(self):
-        #changes the color of the button clicked
-        if self.light7.cget("bg") == "#808080":
-            self.light7.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light7.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light8.cget("bg") == "#808080":
-            self.light8.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light8.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light11.cget("bg") == "#808080":
-            self.light11.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light11.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light6.cget("bg") == "#808080":
-            self.light6.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light6.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light3.cget("bg") == "#808080":
-            self.light3.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light3.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light8_click(self):
-        #changes the color of the button clicked
-        if self.light8.cget("bg") == "#808080":
-            self.light8.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light8.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light12.cget("bg") == "#808080":
-            self.light12.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light12.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light7.cget("bg") == "#808080":
-            self.light7.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light7.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light4.cget("bg") == "#808080":
-            self.light4.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light4.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light9_click(self):
-        #changes the color of the button clicked
-        if self.light9.cget("bg") == "#808080":
-            self.light9.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light9.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light10.cget("bg") == "#808080":
-            self.light10.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light10.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light13.cget("bg") == "#808080":
-            self.light13.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light13.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light5.cget("bg") == "#808080":
-            self.light5.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light5.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light10_click(self):
-        #changes the color of the button clicked
-        if self.light10.cget("bg") == "#808080":
-            self.light10.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light10.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light11.cget("bg") == "#808080":
-            self.light11.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light11.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light14.cget("bg") == "#808080":
-            self.light14.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light14.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light9.cget("bg") == "#808080":
-            self.light9.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light9.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light6.cget("bg") == "#808080":
-            self.light6.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light6.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light11_click(self):
-        #changes the color of the button clicked
-        if self.light11.cget("bg") == "#808080":
-            self.light11.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light11.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light12.cget("bg") == "#808080":
-            self.light12.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light12.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light15.cget("bg") == "#808080":
-            self.light15.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light15.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light10.cget("bg") == "#808080":
-            self.light10.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light10.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light7.cget("bg") == "#808080":
-            self.light7.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light7.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light12_click(self):
-        #changes the color of the button clicked
-        if self.light12.cget("bg") == "#808080":
-            self.light12.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light12.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light16.cget("bg") == "#808080":
-            self.light16.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light16.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light11.cget("bg") == "#808080":
-            self.light11.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light11.configure(bg="#808080", activebackground="#FFFF00") 
-        if self.light8.cget("bg") == "#808080":
-            self.light8.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light8.configure(bg="#808080", activebackground="#FFFF00")
-    
-    def light13_click(self):
-        #changes the color of the button clicked
-        if self.light13.cget("bg") == "#808080":
-            self.light13.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light13.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light14.cget("bg") == "#808080":
-            self.light14.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light14.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light9.cget("bg") == "#808080":
-            self.light9.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light9.configure(bg="#808080", activebackground="#FFFF00") 
-
-    def light14_click(self):
-        #changes the color of the button clicked
-        if self.light14.cget("bg") == "#808080":
-            self.light14.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light14.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light15.cget("bg") == "#808080":
-            self.light15.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light15.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light13.cget("bg") == "#808080":
-            self.light13.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light13.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light10.cget("bg") == "#808080":
-            self.light10.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light10.configure(bg="#808080", activebackground="#FFFF00")
-        
-    def light15_click(self):
-        #changes the color of the button clicked
-        if self.light15.cget("bg") == "#808080":
-            self.light15.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light15.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light16.cget("bg") == "#808080":
-            self.light16.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light16.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light15.cget("bg") == "#808080":
-            self.light15.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light15.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light11.cget("bg") == "#808080":
-            self.light11.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light11.configure(bg="#808080", activebackground="#FFFF00")
-                                   
-    def light16_click(self):
-        #changes the color of the button clicked
-        if self.light16.cget("bg") == "#808080":
-            self.light16.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light16.configure(bg="#808080", activebackground="#FFFF00")
-        #changes the colors of adjacent buttons                     
-        if self.light15.cget("bg") == "#808080":
-            self.light15.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light15.configure(bg="#808080", activebackground="#FFFF00")
-        if self.light12.cget("bg") == "#808080":
-            self.light12.configure(bg="#FFFF00", activebackground="#808080")
-        else:
-            self.light12.configure(bg="#808080", activebackground="#FFFF00")
+        if self.light_objects[main].cget("bg") == "#808080": 
+            self.light_objects[main].configure(bg="#FFFF00", activebackground="#808080")
+        else:
+            self.light_objects[main].configure(bg="#808080", activebackground="#FFFF00")
+        #changes the color of adjacent buttons
+        if (right != 0) and (right != 4) and (right != 8) and (right != 12):
+            if self.light_objects[right].cget("bg") == "#808080": 
+                self.light_objects[right].configure(bg="#FFFF00", activebackground="#808080")
+            else:
+                self.light_objects[right].configure(bg="#808080", activebackground="#FFFF00")
+        if (left != 3) and (left != 7) and (left != 11) and (left != 15):
+            if self.light_objects[left].cget("bg") == "#808080": 
+                self.light_objects[left].configure(bg="#FFFF00", activebackground="#808080")
+            else:
+                self.light_objects[left].configure(bg="#808080", activebackground="#FFFF00")
+        if (above != 16) and (above != 17) and (above != 18) and (above != 19):
+            if self.light_objects[above].cget("bg") == "#808080": 
+                self.light_objects[above].configure(bg="#FFFF00", activebackground="#808080")
+            else:
+                self.light_objects[above].configure(bg="#808080", activebackground="#FFFF00")
+        if (below != -4) and (below != -3) and (below != -2) and (below != -1):
+            if self.light_objects[below].cget("bg") == "#808080": 
+                self.light_objects[below].configure(bg="#FFFF00", activebackground="#808080")
+            else:
+                self.light_objects[below].configure(bg="#808080", activebackground="#FFFF00")  
     
     def __init__(self, master):
         self.master = master
         master.title("Lights Out")
         
-        self.light1 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light1_click())
+        self.light1 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(0))
         self.light1.place(x = 0, y = 240, height=80, width=80)
         
-        self.light2 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light2_click())
+        self.light2 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(1))
         self.light2.place(x = 80, y = 240, height=80, width=80)
         
-        self.light3 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light3_click())
+        self.light3 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(2))
         self.light3.place(x = 160, y = 240, height=80, width=80)
         
-        self.light4 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light4_click())
+        self.light4 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(3))
         self.light4.place(x = 240, y = 240, height=80, width=80)
         
-        self.light5 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light5_click())
+        self.light5 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(4))
         self.light5.place(x = 0, y = 160, height=80, width=80)
         
-        self.light6 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light6_click())
+        self.light6 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(5))
         self.light6.place(x = 80, y = 160, height=80, width=80)
         
-        self.light7 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light7_click())
+        self.light7 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(6))
         self.light7.place(x = 160, y = 160, height=80, width=80)
         
-        self.light8 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light8_click())
+        self.light8 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(7))
         self.light8.place(x = 240, y = 160, height=80, width=80)
         
-        self.light9 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light9_click())
+        self.light9 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(8))
         self.light9.place(x = 0, y = 80, height=80, width=80)
         
-        self.light10 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light10_click())
+        self.light10 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(9))
         self.light10.place(x = 80, y = 80, height=80, width=80)
         
-        self.light11 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light11_click())
+        self.light11 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(10))
         self.light11.place(x = 160, y = 80, height=80, width=80)
         
-        self.light12 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light12_click())
+        self.light12 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(11))
         self.light12.place(x = 240, y = 80, height=80, width=80)
         
-        self.light13 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light13_click())
+        self.light13 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(12))
         self.light13.place(x = 0, y = 0, height=80, width=80)
         
-        self.light14 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light14_click())
+        self.light14 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(13))
         self.light14.place(x = 80, y = 0, height=80, width=80)
         
-        self.light15 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light15_click())
+        self.light15 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(14))
         self.light15.place(x = 160, y = 0, height=80, width=80)
         
-        self.light16 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.light16_click())
+        self.light16 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(15))
         self.light16.place(x = 240, y = 0, height=80, width=80)
+        
+        self.light_objects = [self.light1,self.light2,self.light3, self.light4, self.light5, self.light6, self.light7, self.light8, self.light9, self.light10, self.light11, self.light12, self.light13, self.light14, self.light15, self.light16]
         
         
 root = Tk()
