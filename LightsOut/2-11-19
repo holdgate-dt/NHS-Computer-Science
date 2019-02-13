@@ -20,7 +20,7 @@ class LightsOut:
                 self.light_objects[right].configure(bg="#FFFF00", activebackground="#808080")
             else:
                 self.light_objects[right].configure(bg="#808080", activebackground="#FFFF00")
-        if (left != 3) and (left != 7) and (left != 11) and (left != 15):
+        if (left != -1) and (left != 3) and (left != 7) and (left != 11):
             if self.light_objects[left].cget("bg") == "#808080": 
                 self.light_objects[left].configure(bg="#FFFF00", activebackground="#808080")
             else:
