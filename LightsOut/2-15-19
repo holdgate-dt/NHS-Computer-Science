@@ -1,20 +1,31 @@
 #LightsOut
 from tkinter import *
+import random
 
 class LightsOut:
+    
     light_objects = None
     
+    def on_start(self):
+        #list of solvable starting operations
+        puzzles = [[2, 3, 4, 5, 7, 9, 11, 13, 14], [0, 1, 4, 6, 7, 10, 11, 12, 15], [1, 2, 3, 5, 8, 11, 13, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15], [0, 1, 2, 3, 5, 7, 9, 11, 13, 14], [2, 4, 7, 9, 11, 12, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
+        #turns on the lights listed in one of the solvable scenarios
+        for light in puzzles[random.randint(0, 5)]:
+            self.light_objects[light].configure(bg="#FFFF00", activebackground="#808080")
+                              
     def on_click(self, main):
+        #defines the place values of the adjacent buttons
         right = main + 1
         above = main + 4
         left = main - 1
         below = main -4
-        #changes the color of the button clicked
+        #changes the color of the light clicked
         if self.light_objects[main].cget("bg") == "#808080": 
             self.light_objects[main].configure(bg="#FFFF00", activebackground="#808080")
         else:
             self.light_objects[main].configure(bg="#808080", activebackground="#FFFF00")
-        #changes the color of adjacent buttons
+                              
+        #changes the color of adjacent lights
         if (right != 0) and (right != 4) and (right != 8) and (right != 12):
             if self.light_objects[right].cget("bg") == "#808080": 
                 self.light_objects[right].configure(bg="#FFFF00", activebackground="#808080")
@@ -40,6 +51,7 @@ class LightsOut:
         self.master = master
         master.title("Lights Out")
         
+        #creates the lights
         self.light1 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(0))
         self.light1.place(x = 0, y = 240, height=80, width=80)
         
@@ -87,9 +99,10 @@ class LightsOut:
         
         self.light16 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(15))
         self.light16.place(x = 240, y = 0, height=80, width=80)
-        
+       
+        #list of lights
         self.light_objects = [self.light1,self.light2,self.light3, self.light4, self.light5, self.light6, self.light7, self.light8, self.light9, self.light10, self.light11, self.light12, self.light13, self.light14, self.light15, self.light16]
-        
+        self.on_start()
         
 root = Tk()
 root.geometry("320x320")
