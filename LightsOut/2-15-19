@@ -104,8 +104,10 @@ class LightsOut:
         self.light16 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(15))
         self.light16.place(x = 240, y = 0, height=80, width=80)
        
+        #button to change puzzle
         self.new_puzzle = Button(master, text="New Puzzle", fg="#FFFF00", bg="#808080", activebackground="#FFFFFF", command=lambda:self.on_start())
         self.new_puzzle.place(x = 0, y = 320, height=40, width=320)
+        
         #list of lights and calls the function to turn on the puzzle
         self.light_objects = [self.light1,self.light2,self.light3, self.light4, self.light5, self.light6, self.light7, self.light8, self.light9, self.light10, self.light11, self.light12, self.light13, self.light14, self.light15, self.light16]
         self.on_start()
