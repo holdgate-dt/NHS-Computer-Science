@@ -26,7 +26,7 @@ class LightsOut:
             self.light_objects[main].configure(bg="#808080", activebackground="#FFFF00")
                               
         #changes the color of adjacent lights
-        if (right != 0) and (right != 4) and (right != 8) and (right != 12):
+        if (right != 4) and (right != 8) and (right != 12) and (right != 16):
             if self.light_objects[right].cget("bg") == "#808080": 
                 self.light_objects[right].configure(bg="#FFFF00", activebackground="#808080")
             else:
