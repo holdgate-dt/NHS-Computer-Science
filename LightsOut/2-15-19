@@ -6,48 +6,40 @@ class LightsOut:
     
     light_objects = None
     
+    #list of solvable levels
+    puzzles = [[8, 12, 13], [8, 11, 12, 13, 14, 15], [0, 4, 5, 8, 9, 12, 13, 14], [1, 2, 3, 4, 5, 7, 10, 11, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14], [2, 3, 4, 5, 7, 9, 11, 13, 14], [0, 1, 4, 6, 7, 10, 11, 12, 15], [1, 2, 3, 5, 8, 11, 13, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15], [0, 1, 2, 3, 5, 7, 9, 11, 13, 14], [2, 4, 7, 9, 11, 12, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
     
-    #not working yet - function to change level
-    """
-    current_puzzle_num = 1
+    #starts at level 0 on launch
+    current_puzzle_num = 0
+    
     def puzzle_change(self, action):
-        
-        puzzles = [[2, 3, 4, 5, 7, 9, 11, 13, 14], [0, 1, 4, 6, 7, 10, 11, 12, 15], [1, 2, 3, 5, 8, 11, 13, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15], [0, 1, 2, 3, 5, 7, 9, 11, 13, 14], [2, 4, 7, 9, 11, 12, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
-        
         global current_puzzle_num
-        current_puzzle_num = 0
-        def previous_puzzle():
-            if current_puzzle_num > 0:
-                current_puzzle_num -= 1
-        def next_puzzle():
-            if current_puzzle_num < 6:
-                current_puzzle += 1
-
-        if action == "Previous":
-            previous_puzzle()
-        elif action == "Next":
-            next_puzzle()
         
-        for i in range(15):
+        #either goes back or forward a level, depending on the button clicked
+        if action == "Previous":
+            if self.current_puzzle_num > 0:
+                self.current_puzzle_num -= 1
+                self.current_puzzle.configure(text=str(self.current_puzzle_num))
+        elif action == "Next":
+            if self.current_puzzle_num < (len(self.puzzles) - 1):
+                self.current_puzzle_num += 1
+                self.current_puzzle.configure(text=str(self.current_puzzle_num))
+        
+        #turns all lights off, then turns on the lights in the given level
+        for i in range(16):
             self.light_objects[i].configure(bg="#808080", activebackground="#FFFF00")
         
-        for light in puzzles(current_puzzle_num):
+        for light in self.puzzles[self.current_puzzle_num]:
             self.light_objects[light].configure(bg="#FFFF00", activebackground="#808080")
-        
-        """
-    
-    
-    
+  
     
     def on_start(self):
-        #list of solvable starting operations
-        puzzles = [[2, 3, 4, 5, 7, 9, 11, 13, 14], [0, 1, 4, 6, 7, 10, 11, 12, 15], [1, 2, 3, 5, 8, 11, 13, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15], [0, 1, 2, 3, 5, 7, 9, 11, 13, 14], [2, 4, 7, 9, 11, 12, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
         #turns off all the lights
         for i in range(15):
             self.light_objects[i].configure(bg="#808080", activebackground="#FFFF00")
         
         #turns on the lights listed in one of the solvable scenarios
-        for light in puzzles[random.randint(0, 6)]:
+        for light in self.puzzles[self.current_puzzle_num]:
             self.light_objects[light].configure(bg="#FFFF00", activebackground="#808080")
                               
     def on_click(self, main):
@@ -138,9 +130,8 @@ class LightsOut:
         self.light16.place(x = 240, y = 0, height=80, width=80)
        
         #shows what level you're on now
-        self.current_puzzle = Label(master, text="current puzzle", fg="#FFFF00", bg="#808080", activebackground="#FFFFFF")
+        self.current_puzzle = Label(master, text=str(self.current_puzzle_num), fg="#FFFF00", bg="#808080", activebackground="#FFFFFF")
         self.current_puzzle.place(x = 140, y = 320, height = 40, width = 40)
-        
         #button to change puzzle
         self.previous_puzzle = Button(master, text="<-- Previous", fg="#FFFF00", bg="#808080", activebackground="#FFFFFF", command=lambda:self.puzzle_change("Previous"))
         self.previous_puzzle.place(x = 0, y = 320, height = 40, width = 140)
