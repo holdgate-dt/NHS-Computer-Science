@@ -7,7 +7,7 @@ class LightsOut:
     light_objects = None
     
     #list of solvable levels
-    puzzles = [[8, 12, 13], [8, 11, 12, 13, 14, 15], [0, 4, 5, 8, 9, 12, 13, 14], [1, 2, 3, 4, 5, 7, 10, 11, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14], [2, 3, 4, 5, 7, 9, 11, 13, 14], [0, 1, 4, 6, 7, 10, 11, 12, 15], [1, 2, 3, 5, 8, 11, 13, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15], [0, 1, 2, 3, 5, 7, 9, 11, 13, 14], [2, 4, 7, 9, 11, 12, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
+    puzzles = [[8, 12, 13], [8, 11, 12, 13, 14, 15], [0, 4, 5, 8, 9, 12, 13, 14],  [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14], [1, 2, 3, 4, 5, 7, 10, 11, 14], [2, 3, 4, 5, 7, 9, 11, 13, 14], [0, 1, 4, 6, 7, 10, 11, 12, 15], [1, 2, 3, 5, 8, 11, 13, 14], [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15], [2, 4, 7, 9, 11, 12, 15], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
     
     #starts at level 0 on launch
     current_puzzle_num = 0
@@ -132,9 +132,11 @@ class LightsOut:
         #shows what level you're on now
         self.current_puzzle = Label(master, text=str(self.current_puzzle_num), fg="#FFFF00", bg="#808080", activebackground="#FFFFFF")
         self.current_puzzle.place(x = 140, y = 320, height = 40, width = 40)
-        #button to change puzzle
+        
+        #buttons to change puzzle
         self.previous_puzzle = Button(master, text="<-- Previous", fg="#FFFF00", bg="#808080", activebackground="#FFFFFF", command=lambda:self.puzzle_change("Previous"))
         self.previous_puzzle.place(x = 0, y = 320, height = 40, width = 140)
+        
         self.next_puzzle = Button(master, text="Next -->", fg="#FFFF00", bg="#808080", activebackground="#FFFFFF", command=lambda:self.puzzle_change("Next"))
         self.next_puzzle.place(x = 180, y = 320, height = 40, width = 140)
         
