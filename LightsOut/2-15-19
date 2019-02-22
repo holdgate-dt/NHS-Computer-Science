@@ -12,6 +12,9 @@ class LightsOut:
     #starts at level 0 on launch
     current_puzzle_num = 0
     
+    #move counter
+    current_moves = 0
+    
     def puzzle_change(self, action):
         global current_puzzle_num
         
@@ -19,11 +22,11 @@ class LightsOut:
         if action == "Previous":
             if self.current_puzzle_num > 0:
                 self.current_puzzle_num -= 1
-                self.current_puzzle.configure(text=str(self.current_puzzle_num))
+                self.current_puzzle.configure(text="level " + str(self.current_puzzle_num))
         elif action == "Next":
             if self.current_puzzle_num < (len(self.puzzles) - 1):
                 self.current_puzzle_num += 1
-                self.current_puzzle.configure(text=str(self.current_puzzle_num))
+                self.current_puzzle.configure(text="level " + str(self.current_puzzle_num))
         
         #turns all lights off, then turns on the lights in the given level
         for i in range(16):
@@ -43,6 +46,12 @@ class LightsOut:
             self.light_objects[light].configure(bg="#FFFF00", activebackground="#808080")
                               
     def on_click(self, main):
+        
+        #adds 1 to the move counter
+        global current_moves
+        self.current_moves += 1
+        self.move_counter.configure(text=str(self.current_moves) + " moves")
+        
         #defines the place values of the adjacent buttons
         right = main + 1
         above = main + 4
@@ -128,24 +137,27 @@ class LightsOut:
         
         self.light16 = Button(master, bg="#808080", activebackground="#FFFF00", command=lambda:self.on_click(15))
         self.light16.place(x = 240, y = 0, height=80, width=80)
-       
-        #shows what level you're on now
-        self.current_puzzle = Label(master, text=str(self.current_puzzle_num), fg="#FFFF00", bg="#808080", activebackground="#FFFFFF")
-        self.current_puzzle.place(x = 140, y = 320, height = 40, width = 40)
         
         #buttons to change puzzle
         self.previous_puzzle = Button(master, text="<-- Previous", fg="#FFFF00", bg="#808080", activebackground="#FFFFFF", command=lambda:self.puzzle_change("Previous"))
-        self.previous_puzzle.place(x = 0, y = 320, height = 40, width = 140)
+        self.previous_puzzle.place(x = 0, y = 320, height = 40, width = 160)
         
         self.next_puzzle = Button(master, text="Next -->", fg="#FFFF00", bg="#808080", activebackground="#FFFFFF", command=lambda:self.puzzle_change("Next"))
-        self.next_puzzle.place(x = 180, y = 320, height = 40, width = 140)
+        self.next_puzzle.place(x = 160, y = 320, height = 40, width = 160)
         
         #list of lights and calls the function to turn on the puzzle
         self.light_objects = [self.light1,self.light2,self.light3, self.light4, self.light5, self.light6, self.light7, self.light8, self.light9, self.light10, self.light11, self.light12, self.light13, self.light14, self.light15, self.light16]
         self.on_start()
         
+        #shows what level you're on now
+        self.current_puzzle = Label(master, text="level " + str(self.current_puzzle_num), fg="#FFFF00", bg="#808080")
+        self.current_puzzle.place(x = 160, y = 360, height = 40, width = 160)
+        
+        #move counter
+        self.move_counter = Label(master, text=str(self.current_moves) + " moves", fg="#FFFF00", bg="#808080")
+        self.move_counter.place(x = 0, y = 360, height = 40, width = 160)
 root = Tk()
-root.geometry("320x360")
+root.geometry("320x400")
 root.configure(background="#000000")
 Lights_Out = LightsOut(root)
 root.mainloop()
