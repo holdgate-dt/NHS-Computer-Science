@@ -1,0 +1,76 @@
+from tkinter import *
+from tkinter import messagebox
+import time
+
+
+class TTT:
+    tile_objects = None
+    turnspace = 0
+    
+    def TTT(self, main):
+        global turnspace
+        
+        def nextTurn(x):
+            self.turnspace += x
+
+
+        if self.tile_objects[main].cget("text") == "":
+            if self.turnspace % 2 == 0:
+                self.tile_objects[main].configure(text="X")
+                
+                self.label.configure(text="O's Turn")
+                
+                nextTurn(1)
+            else:
+                self.tile_objects[main].configure(text="O")
+                
+                self.label.configure(text="X's Turn")
+                
+                nextTurn(1)
+            
+            winScenarios = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+        else:
+             messagebox.showinfo("Error", "Invalid Move")
+            
+       
+    
+    def __init__(self, master):
+        self.master = master
+        
+        self.tile0 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(0))
+        self.tile0.place(x=0, y=0, height = 200, width = 200)
+        
+        self.tile1 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(1))
+        self.tile1.place(x=200, y=0, height = 200, width = 200)
+        
+        self.tile2 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(2))
+        self.tile2.place(x=400, y=0, height = 200, width = 200)
+        
+        self.tile3 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(3))
+        self.tile3.place(x=0, y=200, height = 200, width = 200)
+        
+        self.tile4 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(4))
+        self.tile4.place(x=200, y=200, height = 200, width = 200)
+        
+        self.tile5 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(5))
+        self.tile5.place(x=400, y=200, height = 200, width = 200)
+        
+        self.tile6 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(6))
+        self.tile6.place(x=0, y=400, height = 200, width = 200)
+        
+        self.tile7 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(7))
+        self.tile7.place(x=200, y=400, height = 200, width = 200)
+        
+        self.tile8 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(8))
+        self.tile8.place(x=400, y=400, height = 200, width = 200)
+        
+        self.tile_objects = [self.tile0, self.tile1, self.tile2, self.tile3, self.tile4, self.tile5, self.tile6, self.tile7, self.tile8]
+        
+        self.label = Label(master, text="X's Turn", fg="#000000", bg="#FFFFFF")
+        self.label.place(x=0, y=600, height=100, width = 600)
+        
+root = Tk()
+root.geometry("600x700")
+root.configure(bg="#000000")
+TTT = TTT(root)
+root.mainloop()
