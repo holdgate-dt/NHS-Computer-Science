@@ -1,18 +1,44 @@
 from tkinter import *
 from tkinter import messagebox
-import time
-
+from random import randint
+import inspect
 
 class TTT:
+    
+    
+    
     tile_objects = None
     turnspace = 0
     
-    def TTT(self, main):
+    def clear_board(self):
+        for x in range(len(self.tile_objects)):
+            self.tile_objects[x].configure(text="")
+            self.turnspace = 0
+    
+    def nextTurn(self, x):
+        self.turnspace += x
+    
+    def winCheck(self):
+        winScenarios = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+        for scenario in winScenarios:
+            xWinCheck = 0
+            oWinCheck = 0
+            for index in scenario:
+                if self.tile_objects[index].cget("text") == "X":
+                    xWinCheck += 1
+                elif self.tile_objects[index].cget("text") == "O":
+                    oWinCheck += 1
+            if xWinCheck == 3:
+                messagebox.showinfo("Win", "X Wins")
+                self.label.configure(text="X's Turn")
+                self.clear_board()
+                
+            elif oWinCheck == 3:
+                messagebox.showinfo("Win", "O Wins")
+                self.clear_board()
+    
+    def pvc(self, main):
         global turnspace
-        
-        def nextTurn(x):
-            self.turnspace += x
-
 
         if self.tile_objects[main].cget("text") == "":
             if self.turnspace % 2 == 0:
@@ -20,54 +46,109 @@ class TTT:
                 
                 self.label.configure(text="O's Turn")
                 
-                nextTurn(1)
+                self.nextTurn(1)
+            else:
+                self.tile_objects[randint(0,8)].configure(text="O")
+                
+                self.label.configure(text="X's Turn")
+                
+                self.nextTurn(1)
+            
+            self.winCheck()
+    
+    def pvp(self, main):
+        global turnspace
+
+        if self.tile_objects[main].cget("text") == "":
+            if self.turnspace % 2 == 0:
+                self.tile_objects[main].configure(text="X")
+                
+                self.label.configure(text="O's Turn")
+                
+                self.nextTurn(1)
             else:
                 self.tile_objects[main].configure(text="O")
                 
                 self.label.configure(text="X's Turn")
                 
-                nextTurn(1)
+                self.nextTurn(1)
             
-            winScenarios = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+            self.winCheck()
+            
         else:
              messagebox.showinfo("Error", "Invalid Move")
+        
+    
+    def modeChange(self, mode):
+        if mode == "player":
+            for x in range(9):
+                
+                self.tile_objects[x].configure(command=lambda:self.pvp(x))
+        
+        if mode == "computer":
+            for x in range(9):
+                y = x - 8
+                self.tile_objects[x].configure(command=lambda:self.pvc(y))
+                
+        lines = inspect.getsource(self.__init__)
+        print(lines)        
+        self.selection.destroy()
             
-       
+    def modeSelection(self):
+        
+        self.selection = Tk()
+        self.selection.geometry("100x100")
+        self.selection.title("!")
+        B1 = Button(self.selection, text="vs. Player", command=lambda:self.modeChange("player"))
+        B1.pack()
+        B2 = Button(self.selection, text="vs. Computer", command=lambda:self.modeChange("computer"))
+        B2.pack()
+        
+        self.selection.mainloop()
     
     def __init__(self, master):
-        self.master = master
         
-        self.tile0 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(0))
+        self.master = master
+         
+        
+        self.tile0 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(0))
         self.tile0.place(x=0, y=0, height = 200, width = 200)
         
-        self.tile1 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(1))
+        self.tile1 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(1))
         self.tile1.place(x=200, y=0, height = 200, width = 200)
         
-        self.tile2 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(2))
+        self.tile2 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(2))
         self.tile2.place(x=400, y=0, height = 200, width = 200)
         
-        self.tile3 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(3))
+        self.tile3 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(3))
         self.tile3.place(x=0, y=200, height = 200, width = 200)
         
-        self.tile4 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(4))
+        self.tile4 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(4))
         self.tile4.place(x=200, y=200, height = 200, width = 200)
         
-        self.tile5 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(5))
+        self.tile5 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(5))
         self.tile5.place(x=400, y=200, height = 200, width = 200)
         
-        self.tile6 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(6))
+        self.tile6 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(6))
         self.tile6.place(x=0, y=400, height = 200, width = 200)
         
-        self.tile7 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(7))
+        self.tile7 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(7))
         self.tile7.place(x=200, y=400, height = 200, width = 200)
         
-        self.tile8 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.TTT(8))
+        self.tile8 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(8))
         self.tile8.place(x=400, y=400, height = 200, width = 200)
         
         self.tile_objects = [self.tile0, self.tile1, self.tile2, self.tile3, self.tile4, self.tile5, self.tile6, self.tile7, self.tile8]
+       
         
         self.label = Label(master, text="X's Turn", fg="#000000", bg="#FFFFFF")
         self.label.place(x=0, y=600, height=100, width = 600)
+        
+        self.modeSelection()
+        
+    lines = inspect.getsource(__init__)
+    print(lines)
+    
         
 root = Tk()
 root.geometry("600x700")
