@@ -48,7 +48,13 @@ class TTT:
                 
                 self.nextTurn(1)
             else:
-                self.tile_objects[randint(0,8)].configure(text="O")
+                while True:
+                    compChoice = randint(0,8)
+                    if self.tile_objects[compChoice].cget("text") == "X" or self.tile_objects[compChoice].cget("text") == "O":
+                        continue
+                    else:
+                        self.tile_objects[compChoice].configure(text="O")
+                        break
                 
                 self.label.configure(text="X's Turn")
                 
@@ -111,31 +117,31 @@ class TTT:
         self.master = master
          
         
-        self.tile0 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(0))
+        self.tile0 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(0))
         self.tile0.place(x=0, y=0, height = 200, width = 200)
         
-        self.tile1 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(1))
+        self.tile1 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(1))
         self.tile1.place(x=200, y=0, height = 200, width = 200)
         
-        self.tile2 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(2))
+        self.tile2 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(2))
         self.tile2.place(x=400, y=0, height = 200, width = 200)
         
-        self.tile3 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(3))
+        self.tile3 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(3))
         self.tile3.place(x=0, y=200, height = 200, width = 200)
         
-        self.tile4 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(4))
+        self.tile4 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(4))
         self.tile4.place(x=200, y=200, height = 200, width = 200)
         
-        self.tile5 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(5))
+        self.tile5 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(5))
         self.tile5.place(x=400, y=200, height = 200, width = 200)
         
-        self.tile6 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(6))
+        self.tile6 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(6))
         self.tile6.place(x=0, y=400, height = 200, width = 200)
         
-        self.tile7 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(7))
+        self.tile7 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(7))
         self.tile7.place(x=200, y=400, height = 200, width = 200)
         
-        self.tile8 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(8))
+        self.tile8 = Button(master, text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(8))
         self.tile8.place(x=400, y=400, height = 200, width = 200)
         
         self.tile_objects = [self.tile0, self.tile1, self.tile2, self.tile3, self.tile4, self.tile5, self.tile6, self.tile7, self.tile8]
@@ -146,9 +152,6 @@ class TTT:
         
         self.modeSelection()
         
-    lines = inspect.getsource(__init__)
-    print(lines)
-    
         
 root = Tk()
 root.geometry("600x700")
