@@ -5,35 +5,62 @@ from random import randint
 class TTT:
     tile_objects = None
     turnspace = 0
-    
+    xWins = 0
+    oWins = 0
+    oWinCheck = 0
     #function to clear the board and restart the game
     def clear_board(self):
+        global isWon
+        global oWinCheck
         for x in range(len(self.tile_objects)):
             self.tile_objects[x].configure(text="")
+        if self.oWinCheck == 3:
+            self.turnspace = 1
+        else:
             self.turnspace = 0
+            
+        
     
     #function to keep the turn system going after every move
     def nextTurn(self, x):
         self.turnspace += x
     
+    #resets the win counters to 0
+    def resetWins(self):
+        global xWins
+        global oWins
+        self.xWins = 0
+        self.oWins = 0
+        self.xWinsCount.configure(text="X Wins: " + str(self.xWins))
+        self.oWinsCount.configure(text="O Wins: " + str(self.oWins))
+        
     #checks fora winner after every move
     def winCheck(self):
+        global xWins
+        global oWins
+        global oWinCheck
         winScenarios = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+        
         for scenario in winScenarios:
             xWinCheck = 0
-            oWinCheck = 0
+            self.oWinCheck = 0
+            
             for index in scenario:
                 if self.tile_objects[index].cget("text") == "X":
                     xWinCheck += 1
                 elif self.tile_objects[index].cget("text") == "O":
-                    oWinCheck += 1
+                    self.oWinCheck += 1
             if xWinCheck == 3:
                 messagebox.showinfo("Win", "X Wins")
-                self.label.configure(text="X's Turn")
+                self.xWins += 1
+                self.xWinsCount.configure(text="X Wins: " + str(self.xWins))
+                self.turnlabel.configure(text="X's Turn")
                 self.clear_board()
                 
-            elif oWinCheck == 3:
+            elif self.oWinCheck == 3:
                 messagebox.showinfo("Win", "O Wins")
+                self.oWins += 1
+                self.oWinsCount.configure(text="O Wins: " + str(self.oWins))
                 self.clear_board()
         blankCount = 9
         for tile in self.tile_objects:
@@ -41,35 +68,37 @@ class TTT:
                 blankCount -= 1
         if blankCount == 0:
             messagebox.showinfo("Tie", "Tie Game")
-            self.label.configure(text="X's Turn")
+            self.turnlabel.configure(text="X's Turn")
             self.clear_board()
     
     #player vs computer function
     def pvc(self, main):
         global turnspace
-
         if self.tile_objects[main].cget("text") == "":
             if self.turnspace % 2 == 0:
                 self.tile_objects[main].configure(text="X")
                 
                 self.turnlabel.configure(text="O's Turn")
                 
+                self.winCheck()
+                
                 self.nextTurn(1)
+            #computer takes its turn immediately after the player 
+            while True:
+                compChoice = randint(0,8)
+                if self.tile_objects[compChoice].cget("text") == "X" or self.tile_objects[compChoice].cget("text") == "O":
+                    continue
+                else:
+                    self.tile_objects[compChoice].configure(text="O")
+                    break
             
-                #computer takes its turn immediately after the player
-                while True:
-                    compChoice = randint(0,8)
-                    if self.tile_objects[compChoice].cget("text") == "X" or self.tile_objects[compChoice].cget("text") == "O":
-                        continue
-                    else:
-                        self.tile_objects[compChoice].configure(text="O")
-                        break
-                
-                self.turnlabel.configure(text="X's Turn")
-                
-                self.nextTurn(1)
+            self.turnlabel.configure(text="X's Turn")
             
             self.winCheck()
+            
+            self.nextTurn(1)
+        else:
+            messagebox.showinfo("Error", "Invalid Move")      
             
     #Player vs player function
     def pvp(self, main):
@@ -164,17 +193,23 @@ class TTT:
         self.table = Label(master, fg="#000000", bg="#FFFFFF")
         self.table.place(x=3, y=3, height=594, width=594)
         
-        self.watermark = Label(master, text="""github
-@holdgate_dt""", fg="#000000", bg="#FFFFFF")
+        self.watermark = Button(master, text="""github
+@holdgate_dt""", fg="#000000", bg="#FFFFFF", command=lambda:self.resetWins())
         self.watermark.place(x=603, y=603, height=94, width=94)
                                
-        self.turnlabel = Label(master, text="X's Turn", fg="#000000", bg="#FFFFFF", relief="flat")
-        self.turnlabel.place(x=3, y=603, height=94, width=594)
+        self.oWinsCount = Label(master, text="O Wins: 0", fg="#000000", bg="#FFFFFF")
+        self.oWinsCount.place(x=3, y=603, height=94, width=150)
+                               
+        self.xWinsCount = Label(master, text="X Wins: 0", fg="#000000", bg="#FFFFFF")
+        self.xWinsCount.place(x=447, y=603, height=94, width=150)
         
-        self.modeButton_pvp = Button(master, text="VS. PLAYER", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.modeSelect(0))
+        self.turnlabel = Label(master, text="X's Turn", fg="#000000", bg="#FFFFFF", relief="flat")
+        self.turnlabel.place(x=159, y=603, height=94, width=282)
+        
+        self.modeButton_pvp = Button(master, text="VS. Player", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.modeSelect(0))
         self.modeButton_pvp.place(x=600, y=0, height=300, width=100)
         
-        self.modeButton_pvc = Button(master, text="VS. COMPUTER", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.modeSelect(1))
+        self.modeButton_pvc = Button(master, text="VS. Computer", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.modeSelect(1))
         self.modeButton_pvc.place(x=600, y=300, height=300, width=100)
         
 root = Tk()
