@@ -8,6 +8,7 @@ class TTT:
     xWins = 0
     oWins = 0
     oWinCheck = 0
+    
     #function to clear the board and restart the game
     def clear_board(self):
         global isWon
@@ -19,8 +20,6 @@ class TTT:
         else:
             self.turnspace = 0
             
-        
-    
     #function to keep the turn system going after every move
     def nextTurn(self, x):
         self.turnspace += x
@@ -34,7 +33,7 @@ class TTT:
         self.xWinsCount.configure(text="X Wins: " + str(self.xWins))
         self.oWinsCount.configure(text="O Wins: " + str(self.oWins))
         
-    #checks fora winner after every move
+    #checks fora winner after every move, expanded from repl.it win check 
     def winCheck(self):
         global xWins
         global oWins
@@ -71,7 +70,7 @@ class TTT:
             self.turnlabel.configure(text="X's Turn")
             self.clear_board()
     
-    #player vs computer function
+    #player vs computer function, loser gets first move next round
     def pvc(self, main):
         global turnspace
         if self.tile_objects[main].cget("text") == "":
@@ -83,7 +82,8 @@ class TTT:
                 self.winCheck()
                 
                 self.nextTurn(1)
-            #computer takes its turn immediately after the player 
+                
+            #computer takes its turn immediately after the player, if the player wins, computer will go first next round 
             while True:
                 compChoice = randint(0,8)
                 if self.tile_objects[compChoice].cget("text") == "X" or self.tile_objects[compChoice].cget("text") == "O":
@@ -194,7 +194,8 @@ class TTT:
         self.table.place(x=3, y=3, height=594, width=594)
         
         self.watermark = Button(master, text="""github
-@holdgate_dt""", fg="#000000", bg="#FFFFFF", command=lambda:self.resetWins())
+@holdgate_dt
+(reset score)""", fg="#000000", bg="#FFFFFF", command=lambda:self.resetWins())
         self.watermark.place(x=603, y=603, height=94, width=94)
                                
         self.oWinsCount = Label(master, text="O Wins: 0", fg="#000000", bg="#FFFFFF")
