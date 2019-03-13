@@ -8,7 +8,7 @@ class TTT:
     xWins = 0
     oWins = 0
     oWinCheck = 0
-    
+    gamemode = None
     #function to clear the board and restart the game
     def clear_board(self):
         global isWon
@@ -16,7 +16,7 @@ class TTT:
         for x in range(len(self.tile_objects)):
             self.tile_objects[x].configure(text="")
         if self.oWinCheck == 3:
-            self.turnspace = 1
+            self.turnspace = 0
         else:
             self.turnspace = 0
             
@@ -53,14 +53,15 @@ class TTT:
                 messagebox.showinfo("Win", "X Wins")
                 self.xWins += 1
                 self.xWinsCount.configure(text="X Wins: " + str(self.xWins))
-                self.turnlabel.configure(text="X's Turn")
                 self.clear_board()
-                
+                if self.gamemode == "pvp":
+                    self.turnspace = 1
             elif self.oWinCheck == 3:
                 messagebox.showinfo("Win", "O Wins")
                 self.oWins += 1
                 self.oWinsCount.configure(text="O Wins: " + str(self.oWins))
                 self.clear_board()
+                
         blankCount = 9
         for tile in self.tile_objects:
             if tile.cget("text") != "":
@@ -103,7 +104,7 @@ class TTT:
     #Player vs player function
     def pvp(self, main):
         global turnspace
-
+        
         if self.tile_objects[main].cget("text") == "":
             if self.turnspace % 2 == 0:
                 self.tile_objects[main].configure(text="X")
@@ -125,8 +126,9 @@ class TTT:
         
     #Creates buttons operating either the pvp or pvc commands    
     def modeSelect(self, mode):
-
+        global gamemode
         if mode == 0:
+            self.gamemode = "pvp"
             self.tile0 = Button(self.master, font=("Arial", 180), text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(0))
             self.tile0.place(x=0, y=0, height = 200, width = 200)
             
@@ -153,8 +155,9 @@ class TTT:
             
             self.tile8 = Button(self.master, font=("Arial", 180), text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(8))
             self.tile8.place(x=400, y=400, height = 200, width = 200)
-            
+            print (self.tile0.cget("command"))
         elif mode == 1:
+            self.gamemode = None
             self.tile0 = Button(self.master, font=("Arial", 180), text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(0))
             self.tile0.place(x=0, y=0, height = 200, width = 200)
             
