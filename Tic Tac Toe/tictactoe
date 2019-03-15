@@ -9,6 +9,7 @@ class TTT:
     oWins = 0
     oWinCheck = 0
     gamemode = None
+    
     #function to clear the board and restart the game
     def clear_board(self):
         global isWon
@@ -18,20 +19,21 @@ class TTT:
         if self.oWinCheck == 3:
             self.turnspace = 0
         else:
-            self.turnspace = 0
+            self.turnspace = 0 
             
     #function to keep the turn system going after every move
     def nextTurn(self, x):
         self.turnspace += x
-    
-    #resets the win counters to 0
+        
+    #resets the win counters to 0, essentially restarting the game
     def resetWins(self):
         global xWins
         global oWins
         self.xWins = 0
         self.oWins = 0
         self.xWinsCount.configure(text="X Wins: " + str(self.xWins))
-        self.oWinsCount.configure(text="O Wins: " + str(self.oWins))
+        self.oWinsCount.configure(text="O Wins: " + str(self.oWins))  
+        self.clear_board()
         
     #checks fora winner after every move, expanded from repl.it win check 
     def winCheck(self):
@@ -40,10 +42,10 @@ class TTT:
         global oWinCheck
         winScenarios = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
         
+        #loops through win scenarios, if any is met a win is declared and the board is reset
         for scenario in winScenarios:
             xWinCheck = 0
-            self.oWinCheck = 0
-            
+            self.oWinCheck = 0            
             for index in scenario:
                 if self.tile_objects[index].cget("text") == "X":
                     xWinCheck += 1
@@ -61,7 +63,10 @@ class TTT:
                 self.oWins += 1
                 self.oWinsCount.configure(text="O Wins: " + str(self.oWins))
                 self.clear_board()
-                
+                if self.gamemode == "pvc":
+                    self.turnspace += 1
+                    
+        #checks for a tie game if every tile is filled with no winner
         blankCount = 9
         for tile in self.tile_objects:
             if tile.cget("text") != "":
@@ -69,20 +74,18 @@ class TTT:
         if blankCount == 0:
             messagebox.showinfo("Tie", "Tie Game")
             self.turnlabel.configure(text="X's Turn")
-            self.clear_board()
-    
-    #player vs computer function, loser gets first move next round
+            self.clear_board()    
+            
+    #player vs computer function
     def pvc(self, main):
         global turnspace
+        #when turnspace is even, X goes, immediately followed by the computer's random move
         if self.tile_objects[main].cget("text") == "":
             if self.turnspace % 2 == 0:
-                self.tile_objects[main].configure(text="X")
-                
-                self.turnlabel.configure(text="O's Turn")
-                
+                self.tile_objects[main].configure(text="X")             
+                self.turnlabel.configure(text="O's Turn")                
                 self.winCheck()
-                
-                self.nextTurn(1)
+                self.nextTurn(1)  
                 
             #computer takes its turn immediately after the player, if the player wins, computer will go first next round 
             while True:
@@ -91,44 +94,39 @@ class TTT:
                     continue
                 else:
                     self.tile_objects[compChoice].configure(text="O")
-                    break
-            
-            self.turnlabel.configure(text="X's Turn")
-            
-            self.winCheck()
-            
+                    break           
+            self.turnlabel.configure(text="X's Turn")            
+            self.winCheck()          
             self.nextTurn(1)
         else:
-            messagebox.showinfo("Error", "Invalid Move")      
-            
+            messagebox.showinfo("Error", "Invalid Move")   
+               
     #Player vs player function
     def pvp(self, main):
-        global turnspace
-        
+        global turnspace       
+        #when turnspace is even, X goes, when odd O
         if self.tile_objects[main].cget("text") == "":
             if self.turnspace % 2 == 0:
-                self.tile_objects[main].configure(text="X")
-                
-                self.turnlabel.configure(text="O's Turn")
-                
+                self.tile_objects[main].configure(text="X")                
+                self.turnlabel.configure(text="O's Turn")                
                 self.nextTurn(1)
             else:
-                self.tile_objects[main].configure(text="O")
-                
-                self.turnlabel.configure(text="X's Turn")
-                
-                self.nextTurn(1)
-            
-            self.winCheck()
-            
+                self.tile_objects[main].configure(text="O")                
+                self.turnlabel.configure(text="X's Turn")                
+                self.nextTurn(1)            
+            self.winCheck()           
         else:
-             messagebox.showinfo("Error", "Invalid Move")
-        
-    #Creates buttons operating either the pvp or pvc commands    
+             messagebox.showinfo("Error", "Invalid Move") 
+             
+    #Creates buttons operating either the pvp or pvc commands , otherwise identical   
     def modeSelect(self, mode):
         global gamemode
+        global turnspace
         if mode == 0:
             self.gamemode = "pvp"
+            self.turnspace = 0
+            self.turnlabel.configure(text="X's Turn")
+            
             self.tile0 = Button(self.master, font=("Arial", 180), text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(0))
             self.tile0.place(x=0, y=0, height = 200, width = 200)
             
@@ -155,9 +153,11 @@ class TTT:
             
             self.tile8 = Button(self.master, font=("Arial", 180), text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvp(8))
             self.tile8.place(x=400, y=400, height = 200, width = 200)
-            print (self.tile0.cget("command"))
         elif mode == 1:
-            self.gamemode = None
+            self.gamemode = "pvc" 
+            self.turnspace = 0
+            self.turnlabel.configure(text="X's Turn")
+            
             self.tile0 = Button(self.master, font=("Arial", 180), text="", fg="#000000", bg="#FFFFFF", relief="solid", borderwidth=3, command=lambda:self.pvc(0))
             self.tile0.place(x=0, y=0, height = 200, width = 200)
             
@@ -187,8 +187,7 @@ class TTT:
         
         self.tile_objects = [self.tile0, self.tile1, self.tile2, self.tile3, self.tile4, self.tile5, self.tile6, self.tile7, self.tile8]
         
-        
-    #when run, asks which gamemode the player would like to play, X always goes first    
+    #prompts the two gamemode options, the score, and who's turn it is, X always goes first    
     def __init__(self, master):
         
         self.master = master
