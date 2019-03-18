@@ -1,0 +1,25 @@
+from tkinter import *
+
+
+class ConnectFour():
+    
+    def __init__(self, master):
+        w = Canvas(master, width=1400, height=700, bg="#235BD6")
+        w.pack()
+        self.C1R1 = w.create_oval(10, 100, 90, 180, fill="green", width=2)
+        self.C1R2 = w.create_oval(10, 200, 90, 280, fill="red", width=2)
+        self.C1R3 = w.create_oval(10, 300, 90, 380, fill="green", width=2)
+        self.C1R4 = w.create_oval(10, 400, 90, 480, fill="red", width=2)
+        self.C1R5 = w.create_oval(10, 500, 90, 580, fill="green", width=2)
+        self.C1R6 = w.create_oval(10, 600, 90, 680, fill="red", width=2)
+
+
+
+
+
+
+
+root = Tk()
+root.geometry("1400x700")
+ConnectFour = ConnectFour(root)
+root.mainloop()
