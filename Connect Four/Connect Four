@@ -1,8 +1,9 @@
 from tkinter import *
-
+from random import randint
 
 class ConnectFour():
     turnspace = 0
+    gamemode = "pvp"
     column1 = ["white", "white", "white", "white", "white", "white"]
     column2 = ["white", "white", "white", "white", "white", "white"]
     column3 = ["white", "white", "white", "white", "white", "white"]
@@ -11,26 +12,57 @@ class ConnectFour():
     column6 = ["white", "white", "white", "white", "white", "white"]
     column7 = ["white", "white", "white", "white", "white", "white"]
     columns = [column1, column2, column3, column4, column5, column6, column7]
-    
-    def drawBoard(self, columnNo):
-        while True:
-            for x in range(len(self.columns[columnNo])):
-                if self.columns[columnNo][x] == "white":
-                    if self.turnspace % 2 == 0:
-                        self.columns[columnNo][x] = "red"
-                        self.turnspace += 1
-                        break
-                    else:
-                        self.columns[columnNo][x] = "yellow"
-                        self.turnspace += 1
-                        break
-            break
-                    
-            
-            
-        
+    circle_objects = [column1[0], column1[1], column1[2], column1[3], column1[4], column1[5], column2[0], column2[1], column2[2], column2[3], column2[4], column2[5], column3[0], column3[1], column3[2], column3[3], column3[4], column3[5], column4[0], column4[1], column4[2], column4[3], column4[4], column4[5], column5[0], column5[1], column5[2], column5[3], column5[4], column5[5], column6[0], column6[1], column6[2], column6[3], column6[4], column6[5], column7[0], column7[1], column7[2], column7[3], column7[4], column7[5]]
+    def reset(self):
+        for x in range(len(self.columns)):
+            for y in range(len(self.columns[x])):
+                self.columns[x][y] = "white"
+        self.turnspace = 0
+        self.gamemode = None
         self.__init__(None)
+    
+    def setMode(self, mode):
+        self.reset()
+        self.gamemode = mode
         
+    def drawBoard(self, columnNo):
+        if self.gamemode == "pvp":
+            while True:
+                for x in range(len(self.columns[columnNo])):
+                    if self.columns[columnNo][x] == "white":
+                        if self.turnspace % 2 == 0:
+                            self.columns[columnNo][x] = "red"
+                            self.turnspace += 1
+                            break
+                        else:
+                            self.columns[columnNo][x] = "yellow"
+                            self.turnspace += 1
+                            break
+                break
+            print(self.gamemode)
+            self.__init__(None)
+        
+        elif self.gamemode == "pvc":
+            while True:
+                for x in range(len(self.columns[columnNo])):
+                    if self.columns[columnNo][x] == "white":
+                        self.columns[columnNo][x] = "red"
+                        break
+                while True:
+                    compCol = randint(0, 6)
+                    if "white" in self.columns[compCol]:
+                        for x in range(len(self.columns[compCol])):
+                            if self.columns[compCol][x] == "white":
+                                self.columns[compCol][x] = "yellow"
+                                break
+                    else:
+                        continue
+                    
+                    break
+                
+                break
+            self.__init__(None)
+            
         
     def __init__(self, master):   
         w = Canvas(master, width=700, height=600, bg="#235BD6", bd = 0, highlightthickness = 0)
@@ -107,8 +139,16 @@ class ConnectFour():
         self.C7button = Button(master, text="", bg="#FFFFFF", command=lambda:self.drawBoard(6))
         self.C7button.place(x=610, y=10, width=80, height=80)
    
+        self.resetButton = Button(master, text="reset", bg="#FFFFFF", command=lambda:self.reset())
+        self.resetButton.place(x=700, y=650, width=40, height=40)
+        
+        self.pvpButton = Button(master, text="pvp", bg="#FFFFFF", command=lambda:self.setMode("pvp"))
+        self.pvpButton.place(x=700, y=10, width=40, height=310)
+        
+        self.pvcButton = Button(master, text="pvc", bg="#FFFFFF", command=lambda:self.setMode("pvc"))
+        self.pvcButton.place(x=700, y=330, width=40, height=310)
 root = Tk()
 root.configure(bg="#235BD6")
-root.geometry("700x700")
+root.geometry("750x700")
 ConnectFour = ConnectFour(root)
 root.mainloop()
