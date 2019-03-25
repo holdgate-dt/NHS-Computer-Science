@@ -1,5 +1,6 @@
 from tkinter import *
 from random import randint
+from tkinter import messagebox
 
 class ConnectFour():
     turnspace = 0
@@ -12,7 +13,8 @@ class ConnectFour():
     column6 = ["white", "white", "white", "white", "white", "white"]
     column7 = ["white", "white", "white", "white", "white", "white"]
     columns = [column1, column2, column3, column4, column5, column6, column7]
-    circle_objects = [column1[0], column1[1], column1[2], column1[3], column1[4], column1[5], column2[0], column2[1], column2[2], column2[3], column2[4], column2[5], column3[0], column3[1], column3[2], column3[3], column3[4], column3[5], column4[0], column4[1], column4[2], column4[3], column4[4], column4[5], column5[0], column5[1], column5[2], column5[3], column5[4], column5[5], column6[0], column6[1], column6[2], column6[3], column6[4], column6[5], column7[0], column7[1], column7[2], column7[3], column7[4], column7[5]]
+    
+    
     def reset(self):
         for x in range(len(self.columns)):
             for y in range(len(self.columns[x])):
@@ -39,7 +41,6 @@ class ConnectFour():
                             self.turnspace += 1
                             break
                 break
-            print(self.gamemode)
             self.__init__(None)
         
         elif self.gamemode == "pvc":
@@ -63,7 +64,33 @@ class ConnectFour():
                 break
             self.__init__(None)
             
-        
+        circle_objects = [self.column1[0], self.column1[1], self.column1[2], self.column1[3], self.column1[4], self.column1[5], self.column2[0], self.column2[1], self.column2[2], self.column2[3], self.column2[4], self.column2[5], self.column3[0], self.column3[1], self.column3[2], self.column3[3], self.column3[4], self.column3[5], self.column4[0], self.column4[1], self.column4[2], self.column4[3], self.column4[4], self.column4[5], self.column5[0], self.column5[1], self.column5[2], self.column5[3], self.column5[4], self.column5[5], self.column6[0], self.column6[1], self.column6[2], self.column6[3], self.column6[4], self.column6[5], self.column7[0], self.column7[1], self.column7[2], self.column7[3], self.column7[4], self.column7[5]]
+        for x in range(len(circle_objects)):
+            above = [x+1, x+2, x+3]
+            below = [x-1, x-2, x-3]
+            right = [x+6, x+12, x+18]
+            left = [x-6, x-12, x-18]
+            nediagonal = [x+7, x+14, x+21]
+            sediagonal = [x+5, x+10, x+15]
+            swdiagonal = [x-7, x-14, x-21]
+            nwdiagonal = [x-5, x-10, x-15]
+            winScenarios = [above, below, right, left, nediagonal, sediagonal, swdiagonal, nwdiagonal]
+            for scenario in winScenarios:
+                tally = 0
+                for index in scenario:
+                    if index <= 41 and index >= 0:
+                        if circle_objects[x] != "white" and circle_objects[x] == circle_objects[index]:
+                            tally += 1
+                if tally != 3:
+                    continue
+                elif tally == 3:
+                    if self.turnspace % 2 == 1:
+                        messagebox.showinfo("Win", "Red Wins")
+                        self.setMode(self.gamemode)
+                    else:
+                        messagebox.showinfo("Win", "Yellow Wins")
+                        self.setMode(self.gamemode)
+            break
     def __init__(self, master):   
         w = Canvas(master, width=700, height=600, bg="#235BD6", bd = 0, highlightthickness = 0)
         w.place(x=0, y=100)
