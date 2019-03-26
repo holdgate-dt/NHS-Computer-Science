@@ -20,7 +20,7 @@ class ConnectFour():
             for y in range(len(self.columns[x])):
                 self.columns[x][y] = "white"
         self.turnspace = 0
-        self.gamemode = None
+        self.gamemode = "pvp"
         self.__init__(None)
     
     def setMode(self, mode):
@@ -91,6 +91,8 @@ class ConnectFour():
                         messagebox.showinfo("Win", "Yellow Wins")
                         self.setMode(self.gamemode)
             break
+        
+        
     def __init__(self, master):   
         w = Canvas(master, width=700, height=600, bg="#235BD6", bd = 0, highlightthickness = 0)
         w.place(x=0, y=100)
