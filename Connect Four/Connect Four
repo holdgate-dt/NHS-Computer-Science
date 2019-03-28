@@ -20,51 +20,16 @@ class ConnectFour():
             for y in range(len(self.columns[x])):
                 self.columns[x][y] = "white"
         self.turnspace = 0
-        self.gamemode = "pvp"
+        self.gamemode = self.gamemode
         self.__init__(None)
     
     def setMode(self, mode):
         self.reset()
         self.gamemode = mode
         
-    def drawBoard(self, columnNo):
-        if self.gamemode == "pvp":
-            while True:
-                for x in range(len(self.columns[columnNo])):
-                    if self.columns[columnNo][x] == "white":
-                        if self.turnspace % 2 == 0:
-                            self.columns[columnNo][x] = "red"
-                            self.turnspace += 1
-                            break
-                        else:
-                            self.columns[columnNo][x] = "yellow"
-                            self.turnspace += 1
-                            break
-                break
-            self.__init__(None)
-        
-        elif self.gamemode == "pvc":
-            while True:
-                for x in range(len(self.columns[columnNo])):
-                    if self.columns[columnNo][x] == "white":
-                        self.columns[columnNo][x] = "red"
-                        break
-                while True:
-                    compCol = randint(0, 6)
-                    if "white" in self.columns[compCol]:
-                        for x in range(len(self.columns[compCol])):
-                            if self.columns[compCol][x] == "white":
-                                self.columns[compCol][x] = "yellow"
-                                break
-                    else:
-                        continue
-                    
-                    break
-                
-                break
-            self.__init__(None)
-            
+    def checkWin(self):            
         circle_objects = [self.column1[0], self.column1[1], self.column1[2], self.column1[3], self.column1[4], self.column1[5], self.column2[0], self.column2[1], self.column2[2], self.column2[3], self.column2[4], self.column2[5], self.column3[0], self.column3[1], self.column3[2], self.column3[3], self.column3[4], self.column3[5], self.column4[0], self.column4[1], self.column4[2], self.column4[3], self.column4[4], self.column4[5], self.column5[0], self.column5[1], self.column5[2], self.column5[3], self.column5[4], self.column5[5], self.column6[0], self.column6[1], self.column6[2], self.column6[3], self.column6[4], self.column6[5], self.column7[0], self.column7[1], self.column7[2], self.column7[3], self.column7[4], self.column7[5]]
+        
         for x in range(len(circle_objects)):
             above = [x+1, x+2, x+3]
             below = [x-1, x-2, x-3]
@@ -90,12 +55,58 @@ class ConnectFour():
                     else:
                         messagebox.showinfo("Win", "Yellow Wins")
                         self.setMode(self.gamemode)
+                        
             break
         
+    def drawBoard(self, columnNo):
+        if self.gamemode == "pvp":
+            while True:
+                for x in range(len(self.columns[columnNo])):
+                    if self.columns[columnNo][x] == "white":
+                        if self.turnspace % 2 == 0:
+                            self.columns[columnNo][x] = "red"
+                            self.turnspace += 1
+                            self.checkWin()
+                            break
+                        else:
+                            self.columns[columnNo][x] = "yellow"
+                            self.turnspace += 1
+                            self.checkWin()
+                            break
+                break
+            self.__init__(None)
+            self.checkWin()
+            
+        elif self.gamemode == "pvc":
+            while True:
+                if self.turnspace % 2 == 0:
+                    for x in range(len(self.columns[columnNo])):
+                        if self.columns[columnNo][x] == "white":
+                            self.columns[columnNo][x] = "red"
+                            self.turnspace += 1
+                            self.checkWin()
+                            break
+                if self.turnspace % 2 != 0:
+                    while True:
+                        compCol = randint(0, 6)
+                        if "white" in self.columns[compCol]:
+                            for x in range(len(self.columns[compCol])):
+                                if self.columns[compCol][x] == "white":
+                                    self.columns[compCol][x] = "yellow"
+                                    self.turnspace += 1
+                                    break
+                        else:
+                            continue
+                        break
+                
+                break
+            self.__init__(None)
+            
         
     def __init__(self, master):   
         w = Canvas(master, width=700, height=600, bg="#235BD6", bd = 0, highlightthickness = 0)
         w.place(x=0, y=100)
+        
         self.C1R6 = w.create_oval(10, 10, 90, 90, fill=self.column1[5], width=2)
         self.C1R5 = w.create_oval(10, 110, 90, 190, fill=self.column1[4], width=2)
         self.C1R4 = w.create_oval(10, 210, 90, 290, fill=self.column1[3], width=2)
