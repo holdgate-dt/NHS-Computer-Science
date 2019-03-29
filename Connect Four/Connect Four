@@ -3,6 +3,8 @@ from random import randint
 from tkinter import messagebox
 
 class ConnectFour():
+    #game's starting conditions - not won, first turn, pvp mode, all tiles white
+    gameIsWon = False
     turnspace = 0
     gamemode = "pvp"
     column1 = ["white", "white", "white", "white", "white", "white"]
@@ -14,19 +16,21 @@ class ConnectFour():
     column7 = ["white", "white", "white", "white", "white", "white"]
     columns = [column1, column2, column3, column4, column5, column6, column7]
     
-    
+    #resets the board and turnspace to starting conditions, leaves the gamemode as whatever it already was
     def reset(self):
         for x in range(len(self.columns)):
             for y in range(len(self.columns[x])):
                 self.columns[x][y] = "white"
         self.turnspace = 0
         self.gamemode = self.gamemode
-        self.__init__(None)
+        self.draw(None)
     
+    #resets the board when starting a new game, with whichever mode chosen
     def setMode(self, mode):
         self.reset()
         self.gamemode = mode
         
+    
     def checkWin(self):            
         circle_objects = [self.column1[0], self.column1[1], self.column1[2], self.column1[3], self.column1[4], self.column1[5], self.column2[0], self.column2[1], self.column2[2], self.column2[3], self.column2[4], self.column2[5], self.column3[0], self.column3[1], self.column3[2], self.column3[3], self.column3[4], self.column3[5], self.column4[0], self.column4[1], self.column4[2], self.column4[3], self.column4[4], self.column4[5], self.column5[0], self.column5[1], self.column5[2], self.column5[3], self.column5[4], self.column5[5], self.column6[0], self.column6[1], self.column6[2], self.column6[3], self.column6[4], self.column6[5], self.column7[0], self.column7[1], self.column7[2], self.column7[3], self.column7[4], self.column7[5]]
         
@@ -49,61 +53,67 @@ class ConnectFour():
                 if tally != 3:
                     continue
                 elif tally == 3:
-                    if self.turnspace % 2 == 1:
+                    if circle_objects[x] == "red":
+                        self.gameIsWon = True
                         messagebox.showinfo("Win", "Red Wins")
                         self.setMode(self.gamemode)
-                    else:
+                        break
+                    elif circle_objects[x] == "yellow":
+                        self.gameIsWon = True
                         messagebox.showinfo("Win", "Yellow Wins")
                         self.setMode(self.gamemode)
-                        
-            break
+                        break
+                if tally == 3:
+                    break
+            if tally == 3:
+                break
         
     def drawBoard(self, columnNo):
+        self.gameIsWon = False
         if self.gamemode == "pvp":
-            while True:
-                for x in range(len(self.columns[columnNo])):
-                    if self.columns[columnNo][x] == "white":
-                        if self.turnspace % 2 == 0:
-                            self.columns[columnNo][x] = "red"
-                            self.turnspace += 1
-                            self.checkWin()
-                            break
-                        else:
-                            self.columns[columnNo][x] = "yellow"
-                            self.turnspace += 1
-                            self.checkWin()
-                            break
-                break
-            self.__init__(None)
+            for x in range(len(self.columns[columnNo])):
+                if self.columns[columnNo][x] == "white":
+                    if self.turnspace % 2 == 0:
+                        self.columns[columnNo][x] = "red"
+                        self.turnspace += 1
+                        break
+                    else:
+                        self.columns[columnNo][x] = "yellow"
+                        self.turnspace += 1
+                        break
+                
+            self.draw(None)
             self.checkWin()
             
         elif self.gamemode == "pvc":
-            while True:
-                if self.turnspace % 2 == 0:
-                    for x in range(len(self.columns[columnNo])):
-                        if self.columns[columnNo][x] == "white":
-                            self.columns[columnNo][x] = "red"
-                            self.turnspace += 1
-                            self.checkWin()
-                            break
-                if self.turnspace % 2 != 0:
-                    while True:
-                        compCol = randint(0, 6)
-                        if "white" in self.columns[compCol]:
-                            for x in range(len(self.columns[compCol])):
-                                if self.columns[compCol][x] == "white":
-                                    self.columns[compCol][x] = "yellow"
-                                    self.turnspace += 1
-                                    break
-                        else:
-                            continue
+            if self.turnspace % 2 == 0:
+                for x in range(len(self.columns[columnNo])):
+                    if self.columns[columnNo][x] == "white":
+                        self.columns[columnNo][x] = "red"
+                        self.turnspace += 1
+                        self.draw(None)
+                        self.checkWin()
                         break
+            if self.turnspace % 2 != 0:
+                while self.gameIsWon == False:
+                    compCol = randint(0, 6)
+                    if "white" in self.columns[compCol]:
+                        for x in range(len(self.columns[compCol])):
+                            if self.columns[compCol][x] == "white":
+                                self.columns[compCol][x] = "yellow"
+                                self.turnspace += 1
+                                self.draw(None)
+                                self.checkWin()
+                                break
+                    else:
+                        continue
+                    break
                 
-                break
-            self.__init__(None)
-            
-        
-    def __init__(self, master):   
+                
+            self.draw(None)
+            self.checkWin()
+    
+    def draw(self, master):
         w = Canvas(master, width=700, height=600, bg="#235BD6", bd = 0, highlightthickness = 0)
         w.place(x=0, y=100)
         
@@ -155,6 +165,9 @@ class ConnectFour():
         self.C7R3 = w.create_oval(610, 310, 690, 390, fill=self.column7[2], width=2)
         self.C7R2 = w.create_oval(610, 410, 690, 490, fill=self.column7[1], width=2)
         self.C7R1 = w.create_oval(610, 510, 690, 590, fill=self.column7[0], width=2)
+    
+    def __init__(self, master):   
+        self.draw(None)
         
         self.columns = [self.column1, self.column2, self.column3, self.column4, self.column5, self.column6, self.column7]
         
@@ -187,6 +200,7 @@ class ConnectFour():
         
         self.pvcButton = Button(master, text="pvc", bg="#FFFFFF", command=lambda:self.setMode("pvc"))
         self.pvcButton.place(x=700, y=330, width=40, height=310)
+        
 root = Tk()
 root.configure(bg="#235BD6")
 root.geometry("750x700")
