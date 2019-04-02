@@ -30,11 +30,12 @@ class ConnectFour():
         self.reset()
         self.gamemode = mode
         
-    
+    #checks all tiles to see if a win condition has been met
     def checkWin(self):            
         circle_objects = [self.column1[0], self.column1[1], self.column1[2], self.column1[3], self.column1[4], self.column1[5], self.column2[0], self.column2[1], self.column2[2], self.column2[3], self.column2[4], self.column2[5], self.column3[0], self.column3[1], self.column3[2], self.column3[3], self.column3[4], self.column3[5], self.column4[0], self.column4[1], self.column4[2], self.column4[3], self.column4[4], self.column4[5], self.column5[0], self.column5[1], self.column5[2], self.column5[3], self.column5[4], self.column5[5], self.column6[0], self.column6[1], self.column6[2], self.column6[3], self.column6[4], self.column6[5], self.column7[0], self.column7[1], self.column7[2], self.column7[3], self.column7[4], self.column7[5]]
         
         for x in range(len(circle_objects)):
+            #all possible win scenario arrangements by index
             above = [x+1, x+2, x+3]
             below = [x-1, x-2, x-3]
             right = [x+6, x+12, x+18]
@@ -47,9 +48,9 @@ class ConnectFour():
             for scenario in winScenarios:
                 tally = 0
                 for index in scenario:
-                    if index <= 41 and index >= 0:
+                    if (scenario == above and index <= 41 and index >= 0 and index != 6 and index != 12 and index != 18 and index != 24 and index != 30 and index != 36) or (scenario == below and index != 5 and index != 11 and index != 17 and index != 23 and index != 29 and index != 35) or ((scenario == nediagonal or scenario == swdiagonal) and index <= 41 and index >= 0 and index != 3 and index != 4 and index != 5 and index != 10 and index != 11 and index != 17 and index != 24 and index != 30 and index != 36 and index != 31 and index != 37 and index != 38) or ((scenario == nwdiagonal or scenario == sediagonal) and index <= 41 and index >= 0 and index != 0 and index != 2 and index != 3 and index != 6 and index != 7 and index != 12 and index != 29 and index != 35 and index != 41 and index != 34 and index != 40 and index != 39):
                         if circle_objects[x] != "white" and circle_objects[x] == circle_objects[index]:
-                            tally += 1
+                            tally += 1 
                 if tally != 3:
                     continue
                 elif tally == 3:
@@ -67,9 +68,10 @@ class ConnectFour():
                     break
             if tally == 3:
                 break
-        
+    #updates all the tiles with their new colors after a move has been made
     def drawBoard(self, columnNo):
         self.gameIsWon = False
+        #pvp mode - one turn after another
         if self.gamemode == "pvp":
             for x in range(len(self.columns[columnNo])):
                 if self.columns[columnNo][x] == "white":
@@ -84,7 +86,7 @@ class ConnectFour():
                 
             self.draw(None)
             self.checkWin()
-            
+        #pvc mode - one turn followed by an instant/random computer move
         elif self.gamemode == "pvc":
             if self.turnspace % 2 == 0:
                 for x in range(len(self.columns[columnNo])):
@@ -107,12 +109,10 @@ class ConnectFour():
                                 break
                     else:
                         continue
-                    break
-                
-                
+                    break 
             self.draw(None)
             self.checkWin()
-    
+    #draws all the tiles with their updated colors
     def draw(self, master):
         w = Canvas(master, width=700, height=600, bg="#235BD6", bd = 0, highlightthickness = 0)
         w.place(x=0, y=100)
@@ -165,7 +165,7 @@ class ConnectFour():
         self.C7R3 = w.create_oval(610, 310, 690, 390, fill=self.column7[2], width=2)
         self.C7R2 = w.create_oval(610, 410, 690, 490, fill=self.column7[1], width=2)
         self.C7R1 = w.create_oval(610, 510, 690, 590, fill=self.column7[0], width=2)
-    
+    #initializes the different gamemode buttons, and the column selector buttons
     def __init__(self, master):   
         self.draw(None)
         
